@@ -18,7 +18,7 @@ export class CoursesService {
   }
 
   findOne(id: string) {
-    return this.courseModel.findById(id);
+    return this.courseModel.findOne({ _id: id });
   }
 
   update(id: string, updateCourseDto: UpdateCourseDto) {

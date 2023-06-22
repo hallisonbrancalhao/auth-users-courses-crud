@@ -6,6 +6,7 @@ import {
   HttpException,
   HttpStatus,
   Param,
+  Patch,
   Post,
   Put,
   UseGuards,
@@ -66,7 +67,7 @@ export class UsersController {
   }
 
   @UseGuards(AuthGuard)
-  @Put(':id')
+  @Patch(':id')
   update(@Param('id') id: string, @Body() updateUserDto: UpdateUserDto) {
     try {
       return this.usersService.update(id, updateUserDto);
@@ -74,7 +75,7 @@ export class UsersController {
       throw new HttpException(
         {
           status: HttpStatus.NOT_MODIFIED,
-          error: 'Não foi possível excluir o usuário.',
+          error: 'Não foi possível alterar o usuário.',
         },
         HttpStatus.NOT_MODIFIED,
         {

@@ -7,7 +7,7 @@ import {
   HttpStatus,
   Param,
   Post,
-  Put,
+  Patch,
   UseGuards,
 } from '@nestjs/common';
 import { CreateCourseDto } from './dto/create-courses.dto';
@@ -64,8 +64,13 @@ export class CoursesController {
     }
   }
 
-  @Put(':id')
+  @Patch(':id')
   update(@Param('id') id: string, @Body() updateCourseDto: UpdateCourseDto) {
+    if (
+      updateCourseDto.nome.includes('PHP') ||
+      updateCourseDto.nome.includes('php')
+    )
+      throw new InvalidCourseException();
     return this.courseService.update(id, updateCourseDto);
   }
 
