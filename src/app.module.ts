@@ -12,7 +12,9 @@ import { MultiplyMiddleware } from './middleware/multiply/multiply.middleware';
 
 @Module({
   imports: [
-    MongooseModule.forRoot('mongodb://0.0.0.0/nest'),
+    MongooseModule.forRoot(
+      'mongodb+srv://hallisonbrancalhao:hallisonbrancalhao@esoft.dgyt7ce.mongodb.net/',
+    ),
     UsersModule,
     CoursesModule,
     AuthModule,
