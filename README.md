@@ -1,34 +1,116 @@
-1 - Crie uma API Rest em Nest.js que realize as operações de CRUD para as seguintes
-entidades:
-Usuário
-- nome
-- sobrenome
-- email
-- senha
+# API Documentation - CRUD de Usuários e Cursos com JWT
 
-Cursos
-- nome
-- valor
-- duração
+Esta documentação descreve os endpoints e as operações disponíveis na API de CRUD de Usuários e Cursos com autenticação JWT.
 
-Crie rotas para cadastrar, buscar, buscar por ID, atualizar e remover cada uma das entidades
-acima.
+## Autenticação
 
-2 - Configure sua aplicação para que as rotas de cursos só sejam acessadas através de um
-usuário autenticado e de seu token JWT.
-As únicas rotas de usuário que podem ser acessadas sem JWT são a de cadastro e a de login
-(Será feita na questão 3)
+### Autenticação - Login
 
-3 - Crie uma rota de login para autenticar o usuário. A senha do usuário deve ser salva
-criptografada e não pode ser listada por nenhuma rota.
+Realiza o login de um usuário.
 
-4 - Refatore o seu schema de Cursos e Usuários para adicionar os class validators
+- Endpoint: `POST /auth/login`
+- Descrição: Realiza o login do usuário com as credenciais fornecidas.
+- Corpo da Requisição (JSON):
+  ```json
+  {
+    "nome": "Hallison",
+    "senha": "123123123"
+  }
+  ```
 
-5- Crie Exceptions para sua rotas de cursos e usuários, onde pelo menos uma exception deve
-ser criada por você através de uma classe personalizada.
+## Usuários
 
-6 - Crie um middleware para interceptar a requisição de POST na hora de salvar um curso no
-banco de dados. Através desse middleware pegue o request passado na requisição e altere o
-campo valor, multiplique o campo valor do curso por 0.5.
+### Usuários - Criar Usuário
 
-7 - Monte o diagrama de classes da sua aplicação.
+Cria um novo usuário.
+
+- Endpoint: `POST /users`
+- Descrição: Cria um novo usuário com as informações fornecidas.
+- Corpo da Requisição (JSON):
+  ```json
+  {
+    "nome": "Hallison",
+    "sobrenome": "Brancalhao",
+    "email": "hallison@brancalhao.com.br",
+    "senha": "123123123"
+  }
+  ```
+
+### Usuários - Buscar Todos
+
+Recupera todos os usuários.
+
+- Endpoint: `GET /users`
+- Descrição: Retorna uma lista de todos os usuários cadastrados.
+- Cabeçalho da Requisição:
+  - Authorization: Bearer Token
+
+### Usuários - Buscar por ID
+
+Recupera um usuário pelo seu ID.
+
+- Endpoint: `GET /users/{id}`
+- Descrição: Retorna as informações do usuário correspondente ao ID fornecido.
+- Cabeçalho da Requisição:
+  - Authorization: Bearer Token
+
+### Usuários - Atualizar Usuário
+
+Atualiza as informações de um usuário.
+
+- Endpoint: `PATCH /users/{id}`
+- Descrição: Atualiza as informações do usuário correspondente ao ID fornecido.
+- Cabeçalho da Requisição:
+  - Authorization: Bearer Token
+- Corpo da Requisição (JSON):
+  ```json
+  {
+    "nome": "Hallison",
+    "sobrenome": "de Oliveira Brancalhao",
+    "senha": "123123123"
+  }
+  ```
+
+### Usuários - Excluir Usuário
+
+Exclui um usuário.
+
+- Endpoint: `DELETE /users/{id}`
+- Descrição: Exclui o usuário correspondente ao ID fornecido.
+- Cabeçalho da Requisição:
+  - Authorization: Bearer Token
+
+## Cursos
+
+### Cursos - Criar Curso
+
+Cria um novo curso.
+
+- Endpoint: `POST /courses`
+- Descrição: Cria um novo curso com as informações fornecidas.
+- Cabeçalho da Requisição:
+  - Authorization: Bearer Token
+- Corpo da Requisição (JSON):
+  ```json
+  {
+    "nome": "Curso frontend",
+    "valor": 1000,
+    "duracao": "365"
+  }
+  ```
+
+### Cursos - Buscar Todos
+
+Recupera todos os cursos.
+
+- Endpoint: `GET /courses`
+- Descrição: Retorna uma lista de todos os cursos cadastrados.
+- Cabeçalho da Requisição:
+  - Authorization: Bearer Token
+
+### Cursos - Buscar por ID
+
+Recupera um curso pelo seu ID.
+
+- Endpoint: `GET /courses/{id}`
+- Descrição: Retorna as informações do curso correspondente ao ID
